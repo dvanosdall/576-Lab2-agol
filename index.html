@@ -69,29 +69,29 @@
                 }
 
                 //const to make the airport labels
-const airportLabels = {
-  symbol: {
-    type: "text",
-    color: "#FFFFFF",
-    haloColor: "#5E8D74",
-    haloSize: "2px",
-    font: {
-      size: "12px",
-      family: "Noto Sans",
-      style: "italic",
-      weight: "normal"
-    }
-  },
-  labelPlacement: "above-center",
-  labelExpressionInfo: {
-    expression: "$feature.Airport"
-  }
-};
+                const airportLabels = {
+                    symbol: {
+                        type: "text",
+                        color: "#FFFFFF",
+                        haloColor: "#5E8D74",
+                        haloSize: "2px",
+                        font: {
+                            size: "12px",
+                            family: "Noto Sans",
+                            style: "italic",
+                            weight: "normal"
+                        }
+                    },
+                    labelPlacement: "above-center",
+                    labelExpressionInfo: {
+                        expression: "$feature.Airport"
+                    }
+                };
 
                 const ukAirports = new FeatureLayer({
                     url: "https://services.arcgis.com/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/Location_of_UK_Airports/FeatureServer/0",
                     renderer: airportRenderer,
-                    definitionExpression: "x >= -2 AND x <= 1.9 AND y >= 50 AND y <= 55.8", //adding sql to filter for airports only in england not all of uk
+                    definitionExpression: "x >= -5.0 AND x <= 1.8 AND y >= 50 AND y <= 55.8", //adding sql to filter for airports only in england not all of uk
                     outFields: ["*"],
                     labelingInfo: [airportLabels], //adding the labels to the airports
                     popupTemplate: {
@@ -105,10 +105,59 @@ const airportLabels = {
                     }
                 });
 
+                const policeRenderer = {
+                    "type": "simple",
+                    "symbol": {
+                        "type": "picture-marker",
+                        "url": "local_police_24dp_0000F5.png",
+                        "width": "18px",
+                        "height": "18px"
+                    }
+                }
+
+                //const to make the airport labels
+                // this would be the labels for the police stations but it is way to congested so I have commented it out
+                const policeLabels = {
+                    symbol: {
+                        type: "text",
+                        color: "#0000F5",
+                        haloColor: "#FFFFFF",
+                        haloSize: "2px",
+                        font: {
+                            size: "12px",
+                            family: "Noto Sans",
+                            style: "bold",
+                            weight: "normal"
+                        }
+                    },
+                    labelPlacement: "above-center",
+                    labelExpressionInfo: {
+                        expression: "$feature.name"
+                    }
+                };
+
+                const ukPoliceStations = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Police_stations_shp/FeatureServer/0",
+                    renderer: policeRenderer,
+                    outFields: ["*"],
+                    labelingInfo: [policeLabels], //adding the labels to the airports
+                    popupTemplate: {
+                        title: "<b>Name (if avail): {name}</b>",
+                        content: `
+                                    <ul>
+                                        <li><b>FID_1:</b> {FID_1}</li>
+                                        <li><b>osm_id:</b> {osm_id}</li>
+                                        <li><b>code:</b> {code}</li>
+                                        <li><b>fclass:</b> {fclass}</li>
+                                    </ul>
+                                `
+                    }
+                });
+
                 const map = new Map({
                     // Basemap layer - city names
                     basemap: "arcgis-newspaper",
-                    layers: [earthquakeLayer, ukAirports],
+                    layers: [earthquakeLayer, ukAirports, ukPoliceStations],
                 });
 
                 const view = new MapView({
@@ -118,7 +167,7 @@ const airportLabels = {
                     // Div element
                     container: "viewDiv",
                     // Detailed view
-                    scale: 2500000
+                    scale: 10000
                 });
 
                 // addding the constructor for the graphics layer
