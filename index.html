@@ -42,17 +42,19 @@
                     url: "https://services3.arcgis.com/7bJVHfju2RXdGZa4/arcgis/rest/services/UK_Historical_Earthquakes/FeatureServer/0",
                     outFields: ["*"],
                     popupTemplate: {
-                        title: "Historical Earthquakes -- Earthquake at {LOCALITY}",
-                        content: `<b>Date:</b> {DY_MO_YEAR} <br/>
-                                    <b>Time (HR:MN:SS):</b> {HRMN} : {SECS} <br/>
-                                    <b>Magnitude (MAG):</b> {MAG} <br/>
-                                    <b>Depth (km):</b> {DEP} <br/>
-                                    <b>Latitude:</b> {LAT} <br/>
-                                    <b>Longitude:</b> {LON} <br/>
-                                    <b>Intensity:</b> {INT} <br/>
-                                    <b>Comments:</b> {COMMENTS} <br/>
+                        title: "<h3><u>Earthquake at {LOCALITY}</u></h3>",
+                        content: `<ul>
+                                    <li><b>Date:</b> {DY_MO_YEAR}</li>
+                                    <li><b>Time (HR:MN:SS):</b> {HRMN} : {SECS}</li>
+                                    <li><b><a href='https://www.britannica.com/science/earthquake-geology/Earthquake-magnitude' target='_blank'>Magnitude (MAG)</a>:</b> {MAG}</li>
+                                    <li><b><a href='https://www.usgs.gov/programs/earthquake-hazards/determining-depth-earthquake' target='_blank'>Depth (km)</a>:</b> {DEP}</li>
+                                    <li><b>Latitude:</b> {LAT}</li>
+                                    <li><b>Longitude:</b> {LON}</li>
+                                    <li><b><a href='https://www.britannica.com/science/earthquake-geology/Intensity-and-magnitude-of-earthquakes' target='_blank'>Intensity</a>:</b> {INT}</li>
+                                    <li><b>Comments:</b> {COMMENTS}</li>
+                                </ul>
                                     <br/>
-                                    <i>Note: Magnitude sizes on the map reflect the earthquake strength (MAG).</i>`
+                                    <i>Note: These are Historical Earthquakes. Magnitude sizes on the map reflect the earthquake strength (MAG).</i>`
                     }
                 });
 
