@@ -64,6 +64,7 @@
 
                 const simpleMarkerSymbol = {
                     type: "simple-marker",
+                    style: "diamond",
                     color: [255, 0, 0],
                     outline: {
                         color: [255, 255, 255],
@@ -71,9 +72,21 @@
                     }
                 };
 
+                const popupTemplate = {
+                    title: "{Name}",
+                    content: "{Description}"
+                }
+                const attributes = {
+                    Name: "Anfield Stadium, Liverpool FC",
+                    Description: "This is the home stadium of Liverpool FC, now the most successful football club in England."
+                }
+
                 const pointGraphic = new Graphic({
                     geometry: point,
-                    symbol: simpleMarkerSymbol
+                    symbol: simpleMarkerSymbol,
+
+                    attributes: attributes,
+                    popupTemplate: popupTemplate
                 });
 
                 graphicsLayer.add(pointGraphic);
