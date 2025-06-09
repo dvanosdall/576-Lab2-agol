@@ -58,10 +58,24 @@
                     }
                 });
 
+                const ukAirports = new FeatureLayer({
+                    url: "https://services.arcgis.com/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/Location_of_UK_Airports/FeatureServer/0",
+                    outFields: ["*"],
+                    popupTemplate: {
+                        title: "<b>{Airport}</b> Airport",
+                        content: `
+                                    <ul>
+                                        <li><b>Latitude:</b> {Y}</li>
+                                        <li><b>Longitude:</b> {X}</li>
+                                    </ul>
+                                `
+                    }
+                });
+
                 const map = new Map({
                     // Basemap layer - city names
                     basemap: "arcgis-newspaper",
-                    layers: [earthquakeLayer]
+                    layers: [earthquakeLayer, ukAirports],
                 });
 
                 const view = new MapView({
